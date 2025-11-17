@@ -73,7 +73,7 @@ def find_rectangles_and_x(img, gray, output_path='output.jpg', min_area=1000, ma
         if should_add:
             filtered_rectangles.append(rect)
     
-    GAP_THRESHOLD = 15
+    GAP_THRESHOLD = 8
     
     sorted_rects = sorted(filtered_rectangles, key=lambda r: (r['y'], r['x']))
     

@@ -2,6 +2,7 @@ import cv2
 import os
 import shutil
 from findRectangles import find_rectangles_and_x
+from cutExcessives import test_smart_cutting
 
 def clear_dir_safe(dirpath):
     abs_dir = os.path.abspath(dirpath)
@@ -20,8 +21,10 @@ def clear_dir_safe(dirpath):
 if __name__ == "__main__":
     rectangles_dir = "rectangles_full_image"
     clear_dir_safe(rectangles_dir)
+    
+    image_path = test_smart_cutting("/home/gegham/Screenshots/n3.png", save_path="/home/gegham/Screenshots/num1.png")
 
-    image_path = "/home/gegham/Screenshots/n2.png"
+    # image_path = "/home/gegham/Screenshots/n5.png"
     input_ext = os.path.splitext(image_path)[1]
 
     os.makedirs(rectangles_dir, exist_ok=True)
@@ -30,7 +33,7 @@ if __name__ == "__main__":
     if img is None:
         print(f"❌ Could not open image: {image_path}")
         exit(1)
-        
+
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     output_path = os.path.join(rectangles_dir, f"annotated_full_image{input_ext}")
@@ -47,7 +50,6 @@ if __name__ == "__main__":
         save_thresh=False 
     )
     
-    # Ստուգում ենք քանի արժեք է վերադարձվել
     if len(result) == 4:
         rectangles, x_marks, result_img, blocks = result
         has_blocks = True
@@ -64,7 +66,6 @@ if __name__ == "__main__":
     if has_blocks:
         print(f"🔢 Number of blocks detected: {len(blocks)}")
         
-        # Մանրամասն ինֆորմացիա բլոկների մասին
         for block_idx, block in enumerate(blocks):
             print(f"\n   Block {block_idx + 1}: {len(block)} rectangles")
             rows = {}
