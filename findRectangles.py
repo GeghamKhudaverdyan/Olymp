@@ -3,7 +3,6 @@ import numpy as np
 import os
 from x_detector import detect_x_in_roi
 
-
 def find_rectangles_and_x(img, gray, output_path='output.jpg', min_area=1000, max_overlap=0.3,
                           save_crops=False, crops_dir='crops', save_only_with_x=False, save_thresh=False,
                           debug=False, debug_dir='debug'):
@@ -136,7 +135,7 @@ def find_rectangles_and_x(img, gray, output_path='output.jpg', min_area=1000, ma
             row.sort(key=lambda r: r['x'])
             for col_idx, rect in enumerate(row):
                 rect['block_id'] = block_idx + 1
-                rect['matrix_label'] = f"{row_idx + 1}.{col_idx + 1}"
+                rect['matrix_label'] = f"{col_idx + 1}.{row_idx + 1}"
                 rect['row'] = row_idx + 1
                 rect['col'] = col_idx + 1
                 all_rectangles_with_labels.append(rect)
